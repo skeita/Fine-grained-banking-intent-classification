@@ -1,11 +1,11 @@
 # Fine-Grained Banking Intent Classification
 
-An independent Deep Learning NLP project comparing TF-IDF, a PyTorch BiLSTM, and DistilBERT transfer-learning strategies on BANKING77.
+This project studies how different NLP models interpret short banking customer queries. It compares a simple lexical baseline, a BiLSTM built in PyTorch, and several DistilBERT transfer-learning setups on BANKING77.
 
-## Completed workflow
+## What has been completed
 
-- BANKING77 loading with a stratified validation split and untouched official test set
-- EDA: counts, missing values, duplicates, class distribution, and query length
+- BANKING77 loading with a stratified validation split and an untouched official test set
+- Exploratory analysis of class sizes, missing values, duplicate queries, and query length
 - E0: TF-IDF + Logistic Regression
 - E1: PyTorch BiLSTM
 - E2: frozen DistilBERT
@@ -13,9 +13,9 @@ An independent Deep Learning NLP project comparing TF-IDF, a PyTorch BiLSTM, and
 - E4: controlled learning-rate comparison
 - Final test evaluation, per-class metrics, confusion matrix, and error analysis
 
-## Reproduced test results
+## Results
 
-See [`results/metrics.csv`](results/metrics.csv) for the generated metrics. The strongest measured experiment was E3 fine-tuned DistilBERT with test Macro-F1 0.9106.
+The generated results are in [`results/metrics.csv`](results/metrics.csv). The strongest measured experiment was fine-tuned DistilBERT, with a test Macro-F1 of 0.9106.
 
 ## Setup
 
@@ -26,11 +26,11 @@ conda env create -f environment.yml
 conda run -n nlp-banking jupyter lab
 ```
 
-## Important files
+## Where to look
 
-- `AGENTS.md` — persistent project and scientific rules
-- `PROJECT_PLAN.md` — workflow status
-- `notebooks/` — executed experiment notebooks
-- `src/` — reusable data, model, metric, and utility code
-- `results/` — generated metrics, predictions, logs, and checkpoints
-- `report/final_report.md` — concise evidence-based report
+- `AGENTS.md` — project rules and scientific safeguards
+- `PROJECT_PLAN.md` — the experiment roadmap and current status
+- `notebooks/` — the runnable experiments and their executed versions
+- `src/` — reusable data, model, metric, and reproducibility code
+- `results/` — generated metrics, predictions, logs, and evaluation artifacts
+- `report/final_report.md` — the concise final write-up
