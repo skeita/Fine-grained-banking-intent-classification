@@ -1,0 +1,8 @@
+seed: 42
+dataset: PolyAI/banking77
+validation_size: 0.1
+primary_metric: macro_f1
+text_column: text
+label_column: label
+transformer_model: distilbert/distilbert-base-uncased
+max_length: 64

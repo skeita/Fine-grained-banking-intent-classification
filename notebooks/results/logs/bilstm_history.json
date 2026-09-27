@@ -1,0 +1,72 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 3.6258640530320756,
+    "validation_loss": 2.3652635656751237,
+    "validation_accuracy": 0.47352647352647353,
+    "validation_macro_f1": 0.42854468857103417
+  },
+  {
+    "epoch": 2,
+    "train_loss": 1.719362621120918,
+    "validation_loss": 1.389584948252012,
+    "validation_accuracy": 0.6443556443556444,
+    "validation_macro_f1": 0.6200543944335273
+  },
+  {
+    "epoch": 3,
+    "train_loss": 1.0286545162597145,
+    "validation_loss": 1.0504881305532618,
+    "validation_accuracy": 0.7292707292707292,
+    "validation_macro_f1": 0.7184227718064055
+  },
+  {
+    "epoch": 4,
+    "train_loss": 0.7087450701510792,
+    "validation_loss": 0.8948217561314037,
+    "validation_accuracy": 0.7512487512487512,
+    "validation_macro_f1": 0.7397526225809319
+  },
+  {
+    "epoch": 5,
+    "train_loss": 0.5035905009427354,
+    "validation_loss": 0.8271562974531572,
+    "validation_accuracy": 0.7672327672327672,
+    "validation_macro_f1": 0.761346218832275
+  },
+  {
+    "epoch": 6,
+    "train_loss": 0.362634107275185,
+    "validation_loss": 0.7633147096776819,
+    "validation_accuracy": 0.7772227772227772,
+    "validation_macro_f1": 0.770512662732119
+  },
+  {
+    "epoch": 7,
+    "train_loss": 0.2608741044574408,
+    "validation_loss": 0.7319842016065752,
+    "validation_accuracy": 0.7902097902097902,
+    "validation_macro_f1": 0.7839262047817935
+  },
+  {
+    "epoch": 8,
+    "train_loss": 0.19588568228611652,
+    "validation_loss": 0.6974735542253538,
+    "validation_accuracy": 0.7922077922077922,
+    "validation_macro_f1": 0.7829997718819098
+  },
+  {
+    "epoch": 9,
+    "train_loss": 0.1431635426838672,
+    "validation_loss": 0.6859770026002135,
+    "validation_accuracy": 0.7982017982017982,
+    "validation_macro_f1": 0.7875099437806735
+  },
+  {
+    "epoch": 10,
+    "train_loss": 0.11269885094675375,
+    "validation_loss": 0.6716835043885253,
+    "validation_accuracy": 0.8011988011988012,
+    "validation_macro_f1": 0.7958679880300001
+  }
+]

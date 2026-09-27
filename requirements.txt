@@ -1,0 +1,13 @@
+torch
+transformers
+datasets==3.6.0
+evaluate
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
+tqdm
+jupyter
+accelerate
+pyyaml

@@ -1,0 +1,57 @@
+
+# General project configuration
+
+project:
+  # Project name
+  name: NLP Banking
+
+  # Seed used to reproduce the same ML results
+  random_seed: 42
+
+
+
+# Dataset configuration
+
+data:
+  # Folder containing the original dataset
+  raw_path: data/raw
+
+  # Folder containing cleaned/preprocessed data
+  processed_path: data/processed
+
+# NLP model configuration
+
+model:
+  # Hugging Face model used for fine-tuning
+  name: distilbert-base-uncased
+
+  # Maximum number of tokens per text
+  max_length: 128
+
+  # Number of samples processed simultaneously
+  batch_size: 16
+
+  # Learning rate used during Transformer training
+  learning_rate: 0.00002
+
+  # Number of complete passes through the training dataset
+  epochs: 3
+
+# Data splitting
+
+training:
+  # 20% of data used for testing
+  test_size: 0.2
+
+  # 10% can be used for validation
+  validation_size: 0.1
+
+
+# Output folders
+
+output:
+  # Folder used to save trained models
+  model_dir: models
+
+  # Folder used to save graphs and figures
+  figures_dir: reports/figures

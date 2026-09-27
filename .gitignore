@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Caches and secrets
+.cache/
+huggingface/
+.env
+.env.*
+*.key
+
+# Models and checkpoints
+checkpoints/
+models/
+*.bin
+*.safetensors
+
+# Generated data and outputs
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+results/predictions/*
+results/logs/*
+
+# OS/editor
+.DS_Store
+
+*.pt
+results/*_checkpoint/

@@ -1,0 +1,28 @@
+{
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.020524992674781,
+      "validation_loss": 0.5856132008038558,
+      "validation_accuracy": 0.8571428571428571,
+      "validation_macro_f1": 0.8456489795963263
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3979887298526194,
+      "validation_loss": 0.40843129121548644,
+      "validation_accuracy": 0.8911088911088911,
+      "validation_macro_f1": 0.8891488517758025
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.19056289768687779,
+      "validation_loss": 0.3324927343176557,
+      "validation_accuracy": 0.9150849150849151,
+      "validation_macro_f1": 0.9129553633439857
+    }
+  ],
+  "training_seconds": 89.3153680439973,
+  "trainable_parameters": 67012685,
+  "total_parameters": 67012685
+}
