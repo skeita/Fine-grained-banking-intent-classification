@@ -1,8 +1,14 @@
+# Shared settings for the reproducible experiments.
 seed: 42
+# Dataset loaded from the Hugging Face Hub.
 dataset: PolyAI/banking77
+# Validation is carved out of training; the official test split stays untouched.
 validation_size: 0.1
+# Column names used by the dataset loader and notebooks.
 primary_metric: macro_f1
 text_column: text
 label_column: label
+# Model checkpoint used by the frozen and fine-tuned Transformer experiments.
 transformer_model: distilbert/distilbert-base-uncased
+# BANKING77 queries are short, so 64 tokens is enough for this study.
 max_length: 64
