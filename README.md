@@ -34,3 +34,7 @@ conda run -n nlp-banking jupyter lab
 - `src/` — reusable data, model, metric, and reproducibility code
 - `results/` — generated metrics, predictions, logs, and evaluation artifacts
 - `report/final_report.md` — the concise final write-up
+
+## Sources for each technique
+
+The complete source map is in [`references/SOURCES.md`](references/SOURCES.md). It includes the Hugging Face, PyTorch, and scikit-learn documentation, the original research papers, and the related course notebooks stored in this repository.
