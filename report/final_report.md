@@ -22,7 +22,7 @@ E0 used TF-IDF bigrams with Logistic Regression. E1 used a PyTorch BiLSTM with a
 |---|---:|---:|---:|
 | E0 TF-IDF + Logistic Regression | 0.8562 | 0.8558 | 0.8558 |
 | E1 BiLSTM | 0.8088 | 0.8092 | 0.8092 |
-| E2 Frozen DistilBERT | 0.1565 | 0.6705 | 0.6705 |
+| E2 Frozen DistilBERT | 0.6789 | 0.6705 | 0.6705 |
 | E3 Fine-tuned DistilBERT | 0.9104 | 0.9106 | 0.9106 |
 | E4 Fine-tuned DistilBERT, 5e-5 | 0.9104 | 0.9104 | 0.9104 |
 
