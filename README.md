@@ -1,40 +1,156 @@
 # Fine-Grained Banking Intent Classification
 
-This project studies how different NLP models interpret short banking customer queries. It compares a simple lexical baseline, a BiLSTM built in PyTorch, and several DistilBERT transfer-learning setups on BANKING77.
+This individual project studies banking-intent classification on BANKING77. It compares a lexical baseline, a PyTorch BiLSTM, frozen DistilBERT, fully fine-tuned DistilBERT, and one controlled learning-rate experiment.
 
-## What has been completed
+**Author:** Saibou KEITA  
+**Primary metric:** Macro-F1  
+**Reproducibility seed:** 42
 
-- BANKING77 loading with a stratified validation split and an untouched official test set
-- Exploratory analysis of class sizes, missing values, duplicate queries, and query length
-- E0: TF-IDF + Logistic Regression
-- E1: PyTorch BiLSTM
-- E2: frozen DistilBERT
-- E3: fully fine-tuned DistilBERT
-- E4: controlled learning-rate comparison
-- Final test evaluation, per-class metrics, confusion matrix, and error analysis
+## Dataset
+
+This project uses the public [PolyAI/banking77 dataset](https://huggingface.co/datasets/PolyAI/banking77) through the Hugging Face datasets library. BANKING77 contains 77 fine-grained banking intents and customer support queries.
+
+The official training split is divided into training and validation data using seed 42. The official test split is kept untouched until final evaluation. Raw dataset files are downloaded when the notebooks run and are not stored in this repository.
 
 ## Results
 
-The generated results are in [`results/metrics.csv`](results/metrics.csv). The strongest measured experiment was fine-tuned DistilBERT, with a test Macro-F1 of 0.9106.
+The strongest measured experiment is fully fine-tuned DistilBERT with test Macro-F1 **0.9106**. All reported values come from executed artifacts; the official test split remains untouched until final evaluation.
 
-## Setup
+| Experiment | Test Macro-F1 |
+|---|---:|
+| E0 TF-IDF + Logistic Regression | 0.8558 |
+| E1 BiLSTM | 0.8092 |
+| E2 Frozen DistilBERT | 0.6705 |
+| E3 Fine-tuned DistilBERT | 0.9106 |
+| E4 Fine-tuned DistilBERT, learning rate 5e-5 | 0.9104 |
 
-Use the existing Conda environment described by `environment.yml`, or create a compatible environment and install `requirements.txt`. Datasets is pinned to 3.6.0 because the BANKING77 repository uses its official remote dataset script.
+The complete table is in [`results/metrics.csv`](results/metrics.csv). The final reports are [`report/final_report.md`](report/final_report.md) and [`report/final_report.docx`](report/final_report.docx).
+
+## Environment setup
+
+Run all commands from the repository root:
+
+```bash
+cd /home/etudiant-keita/NLP-Banking
+```
+
+Create the documented Conda environment:
 
 ```bash
 conda env create -f environment.yml
+```
+
+Or install the Python dependencies into an existing environment:
+
+```bash
+conda run -n nlp-banking python -m pip install -r requirements.txt
+```
+
+The project uses Python 3.11 or newer. `datasets` is pinned to `3.6.0` for the BANKING77 loader.
+
+Optional Hugging Face authentication for higher download limits:
+
+```bash
+export HF_TOKEN=your_token_here
+```
+
+The token is read by the project and is not printed or stored.
+
+## Run the notebooks
+
+Start Jupyter Lab:
+
+```bash
 conda run -n nlp-banking jupyter lab
 ```
 
-## Where to look
+Run the notebooks in order:
 
-- `AGENTS.md` — project rules and scientific safeguards
-- `PROJECT_PLAN.md` — the experiment roadmap and current status
-- `notebooks/` — the runnable experiments and their executed versions
-- `src/` — reusable data, model, metric, and reproducibility code
-- `results/` — generated metrics, predictions, logs, and evaluation artifacts
-- `report/final_report.md` — the concise final write-up
+1. `notebooks/00_setup_reproducibility_executed.ipynb`
+2. `notebooks/01_eda_executed.ipynb`
+3. `notebooks/02_baseline_executed.ipynb`
+4. `notebooks/03_bilstm_executed.ipynb`
+5. `notebooks/04_distilbert_frozen_executed.ipynb`
+6. `notebooks/05_distilbert_finetuning_executed.ipynb`
+7. `notebooks/06_experiments_lr_5e-5_executed.ipynb`
+8. `notebooks/07_evaluation_executed.ipynb`
 
-## Sources for each technique
+## Start the MLflow dashboard
 
-The complete source map is in [`references/SOURCES.md`](references/SOURCES.md). It includes the Hugging Face, PyTorch, and scikit-learn documentation, the original research papers, and the related course notebooks stored in this repository.
+Populate or refresh the local MLflow experiment from the evaluated results:
+
+```bash
+conda run -n nlp-banking python scripts/log_results_to_mlflow.py
+```
+
+Start MLflow from the repository root in a separate terminal:
+
+```bash
+cd /home/etudiant-keita/NLP-Banking
+conda run -n nlp-banking mlflow ui \
+  --backend-store-uri sqlite:///$(pwd)/mlflow.db \
+  --host 127.0.0.1 --port 5000
+```
+
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000) and select the `nlp-banking` experiment. The dashboard contains one canonical run per model, metrics, parameters, predictions, per-class metrics, confusion matrix, and top-confusion artifacts.
+
+To stop MLflow, press `Ctrl+C` in the terminal running it.
+
+## Start the Streamlit application
+
+Start the local inference dashboard in another terminal:
+
+```bash
+cd /home/etudiant-keita/NLP-Banking
+conda run -n nlp-banking streamlit run app/app.py \
+  --server.address 127.0.0.1 --server.port 8501 \
+  --server.fileWatcherType none
+```
+
+Open [http://127.0.0.1:8501](http://127.0.0.1:8501).
+
+The Streamlit interface contains:
+
+- **Data explorer:** dataset sizes, class balance, query length, and EDA figures;
+- **Predict intent:** editable banking query box, suggestions, confidence, and intent name;
+- **Intent atlas:** per-intent metrics, real examples, and categorized confusion pairs;
+- **Model lab:** final comparison and training/validation curves;
+- **Error analysis:** top confusion pairs and their counts.
+
+To stop Streamlit, press `Ctrl+C` in its terminal.
+
+## Validation and quality checks
+
+Run the reproducibility check, project audit, tests, and code quality checks:
+
+```bash
+conda run -n nlp-banking python scripts/reproducibility_check.py
+conda run -n nlp-banking python scripts/project_audit.py
+conda run -n nlp-banking python -m pytest -q
+conda run -n nlp-banking ruff check src tests scripts app
+conda run -n nlp-banking ruff format --check src tests scripts app
+```
+
+The Streamlit interface can also be smoke-tested with:
+
+```bash
+conda run -n nlp-banking python -m py_compile app/app.py
+```
+
+## Project structure
+
+- `AGENTS.md` — scientific and repository rules;
+- `PROJECT_PLAN.md` — workflow and completion status;
+- `configs/base.yaml` — canonical experiment configuration;
+- `notebooks/` — sequential executed labs;
+- `src/` — reusable data, feature, model, evaluation, and tracking code;
+- `scripts/` — audits, reproducibility checks, and MLflow import;
+- `results/` — metrics, predictions, logs, and checkpoints;
+- `figures/` — EDA, comparison, and training-history plots;
+- `app/app.py` — interactive Streamlit dashboard;
+- `mlflow.db` — local MLflow tracking database;
+- `report/` — Markdown and Word final reports.
+
+## Scientific safeguards
+
+The project keeps the official test split untouched until final evaluation, creates validation data only from the original training split, uses seed 42, records configuration and package information, separates observations from interpretations, and does not fabricate metrics, timings, GPU measurements, or conclusions.
