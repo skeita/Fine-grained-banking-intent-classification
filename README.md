@@ -1,5 +1,7 @@
 # Fine-Grained Banking Intent Classification
 
+[Open the Streamlit application](https://fine-grained-banking-intent-classification-a4g9nex9ivsdxoxskgc.streamlit.app/)
+
 This individual project studies banking-intent classification on BANKING77. It compares a lexical baseline, a PyTorch BiLSTM, frozen DistilBERT, fully fine-tuned DistilBERT, and one controlled learning-rate experiment.
 
 **Author:** Saibou KEITA  
