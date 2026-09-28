@@ -24,7 +24,7 @@ The strongest measured experiment is fully fine-tuned DistilBERT with test Macro
 | E3 Fine-tuned DistilBERT | 0.9106 |
 | E4 Fine-tuned DistilBERT, learning rate 5e-5 | 0.9104 |
 
-The complete table is in [`results/metrics.csv`](results/metrics.csv). The final reports are [`report/final_report.md`](report/final_report.md) and [`report/final_report.docx`](report/final_report.docx).
+The complete table is in [`results/metrics.csv`](results/metrics.csv). The main report is [`report/final_report.md`](report/final_report.md). An extended Word version is available as [`report/final_report_8_pages.docx`](report/final_report_8_pages.docx) when that document is included in the repository.
 
 ## Environment setup
 
@@ -46,7 +46,7 @@ Or install the Python dependencies into an existing environment:
 conda run -n nlp-banking python -m pip install -r requirements.txt
 ```
 
-The project uses Python 3.11 or newer. `datasets` is pinned to `3.6.0` for the BANKING77 loader.
+The project uses Python 3.11. The `requirements.txt` file pins `datasets` to `3.6.0` for the BANKING77 loader.
 
 Optional Hugging Face authentication for higher download limits:
 
@@ -75,27 +75,6 @@ Run the notebooks in order:
 7. `notebooks/06_experiments_lr_5e-5_executed.ipynb`
 8. `notebooks/07_evaluation_executed.ipynb`
 
-## Start the MLflow dashboard
-
-Populate or refresh the local MLflow experiment from the evaluated results:
-
-```bash
-conda run -n nlp-banking python scripts/log_results_to_mlflow.py
-```
-
-Start MLflow from the repository root in a separate terminal:
-
-```bash
-cd /home/etudiant-keita/NLP-Banking
-conda run -n nlp-banking mlflow ui \
-  --backend-store-uri sqlite:///$(pwd)/mlflow.db \
-  --host 127.0.0.1 --port 5000
-```
-
-Open [http://127.0.0.1:5000](http://127.0.0.1:5000) and select the `nlp-banking` experiment. The dashboard contains one canonical run per model, metrics, parameters, predictions, per-class metrics, confusion matrix, and top-confusion artifacts.
-
-To stop MLflow, press `Ctrl+C` in the terminal running it.
-
 ## Start the Streamlit application
 
 Start the local inference dashboard in another terminal:
@@ -107,7 +86,7 @@ conda run -n nlp-banking streamlit run app/app.py \
   --server.fileWatcherType none
 ```
 
-Open [http://127.0.0.1:8501](http://127.0.0.1:8501).
+Open the deployed app at [https://fine-grained-banking-intent-classification-a4g9nex9ivsdxoxskgc.streamlit.app/](https://fine-grained-banking-intent-classification-a4g9nex9ivsdxoxskgc.streamlit.app/). For local use, open [http://127.0.0.1:8501](http://127.0.0.1:8501).
 
 The Streamlit interface contains:
 
@@ -121,14 +100,12 @@ To stop Streamlit, press `Ctrl+C` in its terminal.
 
 ## Validation and quality checks
 
-Run the reproducibility check, project audit, tests, and code quality checks:
+Run the available tests and code quality checks:
 
 ```bash
-conda run -n nlp-banking python scripts/reproducibility_check.py
-conda run -n nlp-banking python scripts/project_audit.py
 conda run -n nlp-banking python -m pytest -q
-conda run -n nlp-banking ruff check src tests scripts app
-conda run -n nlp-banking ruff format --check src tests scripts app
+conda run -n nlp-banking ruff check src tests app
+conda run -n nlp-banking ruff format --check src tests app
 ```
 
 The Streamlit interface can also be smoke-tested with:
@@ -138,17 +115,13 @@ conda run -n nlp-banking python -m py_compile app/app.py
 ```
 
 ## Project structure
-
-- `AGENTS.md` — scientific and repository rules;
 - `PROJECT_PLAN.md` — workflow and completion status;
 - `configs/base.yaml` — canonical experiment configuration;
 - `notebooks/` — sequential executed labs;
 - `src/` — reusable data, feature, model, evaluation, and tracking code;
-- `scripts/` — audits, reproducibility checks, and MLflow import;
-- `results/` — metrics, predictions, logs, and checkpoints;
+- `results/` — metrics, predictions, logs, and model artifacts;
 - `figures/` — EDA, comparison, and training-history plots;
 - `app/app.py` — interactive Streamlit dashboard;
-- `mlflow.db` — local MLflow tracking database;
 - `report/` — Markdown and Word final reports.
 
 ## Scientific safeguards
