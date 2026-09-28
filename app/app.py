@@ -237,18 +237,28 @@ def main() -> None:
             st.image(str(comparison_figure), caption="Measured Macro-F1 comparison from the executed experiments.", width="stretch")
 
         st.subheader("Training dynamics")
+        history_roots = [root / "results/logs", root / "notebooks/results/logs"]
+
+        def history_path(filename: str) -> Path | None:
+            """Return the first available training history artifact."""
+            for history_root in history_roots:
+                candidate = history_root / filename
+                if candidate.exists():
+                    return candidate
+            return None
+
         history_files = {
             "TF-IDF + Logistic Regression": None,
-            "BiLSTM": root / "results/logs/bilstm_history.json",
-            "Frozen DistilBERT": root / "results/logs/04_distilbert_frozen_history.json",
-            "Fine-tuned DistilBERT": root / "results/logs/05_distilbert_finetuning_history.json",
-            "Fine-tuned DistilBERT, learning rate 5e-5": root / "results/logs/06_experiments_lr_5e-5_history.json",
+            "BiLSTM": history_path("bilstm_history.json"),
+            "Frozen DistilBERT": history_path("04_distilbert_frozen_history.json"),
+            "Fine-tuned DistilBERT": history_path("05_distilbert_finetuning_history.json"),
+            "Fine-tuned DistilBERT, learning rate 5e-5": history_path("06_experiments_lr_5e-5_history.json"),
         }
         selected_history = st.selectbox("Choose a training run", list(history_files))
         history_path = history_files[selected_history]
         if history_path is None:
             st.info("TF-IDF + Logistic Regression is a classical one-fit baseline, not an epoch-based neural training loop. Its measured final metrics are shown above, so loss curves are not available for this model.")
-        elif history_path.exists():
+        elif history_path is not None and history_path.exists():
             raw_history = json.loads(history_path.read_text())
             history = raw_history["history"] if isinstance(raw_history, dict) else raw_history
             history_frame = pd.DataFrame(history).set_index("epoch")
