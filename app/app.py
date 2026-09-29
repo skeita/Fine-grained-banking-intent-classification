@@ -128,7 +128,7 @@ def main() -> None:
     .stButton > button:hover, .stButton > button:focus { background: var(--teal) !important; color: #ffffff !important; border-color: var(--teal) !important; }
     </style>
     """, unsafe_allow_html=True)
-    st.caption("Interactive inference dashboard | Saibou KEITA")
+    st.caption("Interactive inference dashboard")
 
     if metrics_path.exists():
         metrics = pd.read_csv(metrics_path)
@@ -275,7 +275,7 @@ def main() -> None:
             st.info(f"Interpretation: {selected_history} finishes at validation Macro-F1 {final_score:.3f}. A decreasing loss and rising validation score indicate learning; a widening validation loss would be a warning sign for overfitting.")
 
     with predict:
-        st.markdown('<div class="chat-bubble"><span class="mini-label">SIRIUS assistant</span><br><b>Good morning, Saibou.</b><br>Tell me what happened with your banking request and I will route it to the most relevant support intent.</div>', unsafe_allow_html=True)
+        st.markdown('<div class="chat-bubble"><span class="mini-label">SIRIUS assistant</span><br><b>Good morning client.</b><br>Tell me what happened with your banking request and I will route it to the most relevant support intent.</div>', unsafe_allow_html=True)
         st.markdown('<div class="section-kicker">Secure conversation</div>', unsafe_allow_html=True)
         st.subheader("Tell us what happened")
         st.caption("Choose a suggestion or write your own message below.")
