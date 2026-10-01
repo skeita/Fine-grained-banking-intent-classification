@@ -4,7 +4,7 @@
 
 This individual project studies banking-intent classification on BANKING77. It compares a lexical baseline, a PyTorch BiLSTM, frozen DistilBERT, fully fine-tuned DistilBERT, and one controlled learning-rate experiment.
 
-**Author:** Saibou KEITA  
+**Author:** Saibou KEITA  and Benjamin Bezan
 **Primary metric:** Macro-F1  
 **Reproducibility seed:** 42
 
